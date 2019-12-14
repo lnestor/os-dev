@@ -13,20 +13,22 @@ os-image: boot/boot_sect.bin kernel/kernel.bin
 	cat $^ > os-image
 
 # Kernel binary
-kernel.bin: boot/kernel_entry.o ${OBJ}
-	ld -o $@ -Ttext 0x1000 $^ --oformat binary
+kernel/kernel.bin: boot/kernel_entry.o ${OBJ}
+	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
 # Compiling C sources
 %.o: %.c
-	gcc -ffreestanding -c $< -o $@
+	gcc -m32 -fno-pie -ffreestanding -c $< -o $@
 
 # Assemble kernel_entry
 %.o: %.asm
-	nasm $< -f elf -o $@
+	nasm $< -f elf32 -o $@
 
 # Assemble normal asm files
 %.bin: %.asm
 	nasm $< -f bin -o $@
 
 clean:
-	rm kernel/*.o boot/*.bin os-image
+	rm boot/*.o boot/*.bin
+	rm kernel/*.o kernel/*.bin
+	rm os-image
