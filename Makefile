@@ -29,4 +29,4 @@ kernel.bin: boot/kernel_entry.o ${OBJ}
 	nasm $< -f bin -o $@
 
 clean:
-	rm *.bin *.o os-image
+	rm kernel/*.o boot/*.bin os-image

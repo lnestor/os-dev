@@ -13,11 +13,11 @@ KERNEL_OFFSET equ 0x1000 ; Kernel is stored here in memory
   call switch_to_pm
   jmp $
 
-%include "rm/print_string_rm.asm"
-%include "rm/disk_load_rm.asm"
-%include "gdt.asm"
-%include "pm/switch_to_pm.asm"
-%include "pm/print_string_pm.asm"
+%include "boot/rm/print_string_rm.asm"
+%include "boot/rm/disk_load_rm.asm"
+%include "boot/gdt.asm"
+%include "boot/pm/switch_to_pm.asm"
+%include "boot/pm/print_string_pm.asm"
 
 [bits 16]
 load_kernel:
